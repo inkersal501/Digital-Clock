@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Digital Clock</title>
+    <style>
+    body{
+        background-image: url(./bg.jpg);
+        background-size: cover;
+        background-position:top;
+        /* background-repeat: repeat; */
+        color:aliceblue;
+    }
+    #clock {
+        font-size: 75px;  
+        margin: auto;
+        text-align: center; 
+        font-weight: 800;  
+        text-shadow: -1px 3px 0 #b5e8f9, 2px 0px 0 #000, 3px 0px 0 #000, 2px 0px 0 #b5e8f9; 
+    }
+    #date {    
+        margin: 0 auto;
+        text-align: center;
+        font-weight: 800;  
+        text-shadow: -1px 3px 0 #b5e8f9, 2px 0px 0 #000, 3px 0px 0 #000, 2px 0px 0 #b5e8f9; 
+    }
+    #date span:first-child{
+        font-size: 75px; 
+    }
+    #date span:last-child{
+        font-size: 60px;  
+    }
+    .container{
+        width: fit-content;
+        margin: auto;
+        height: 40vh;
+        background: none;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        transform: translatey(0px);
+        box-sizing: border-box;
+        animation: float 3s ease-in-out infinite;
+        position: fixed;
+        bottom: 10vh;
+        left: 35vw;
+        
+    }
+
+    
+@keyframes float {
+	0% {
+		/* box-shadow: 0 5px 15px 0px rgba(0,0,0,0.6); */
+		transform: translatey(0px);
+	}
+	50% {
+		/* box-shadow: 0 25px 15px 0px rgba(0,0,0,0.2); */
+		transform: translatey(-20px);
+	}
+	100% {
+		/* box-shadow: 0 5px 15px 0px rgba(0,0,0,0.6); */
+		transform: translatey(0px);
+	}
+}
+
+    </style>
+  </head>
+  <body>
+    <div class="container">
+        <div id="date"></div>
+        <div id="clock"></div>
+    </div>
+    
+
+    <script>
+      setInterval(showTime, 1000);
+
+      function showTime() {
+        let time = new Date();
+        let hour = time.getHours();
+        let min = time.getMinutes();
+        let sec = time.getSeconds();
+        // let am_pm = time.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
+
+        if (hour >= 12) { 
+        //   am_pm = "PM";
+        } else if (hour == 0) {
+          hr =' 00';
+        //   am_pm = "AM";
+        }
+
+        hour = hour < 10 ? "0" + hour : hour;
+        min = min < 10 ? "0" + min : min;
+        sec = sec < 10 ? "0" + sec : sec;
+
+        let currentTime = `${hour} : ${min} : ${sec}`;
+        document.getElementById("clock").textContent = currentTime;
+      }
+
+      showTime();
+      showDate();
+      
+      function showDate(){
+        const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+        let time    = new Date();
+        let month   = (time.getMonth()<10)?"0"+time.getMonth():time.getMonth();
+        let year    = time.getFullYear();
+        let date    = (time.getDate()<10)?"0"+time.getDate():time.getDate();
+        let day     = days[time.getDay()]; 
+        document.getElementById("date").innerHTML = `<span>${date}-${month}-${year}</span><br><span>${day}</span>`;
+      }
+    </script>
+  </body>
+</html>
